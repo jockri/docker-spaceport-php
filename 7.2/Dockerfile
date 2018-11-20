@@ -12,7 +12,7 @@ RUN echo 'deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main' >> /etc/ap
     apt-get -y -q autoremove && \
     apt-get -y -q clean && \
     rm -rf /var/lib/apt/lists/*
-    pecl install grpc
+#    pecl install grpc
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer global require hirak/prestissimo
@@ -39,8 +39,8 @@ RUN locale-gen nl_BE && \
     locale-gen fr_FR.UTF-8 && \
     locale-gen en_US.UTF-8
 
-RUN echo "extension=grpc.so" | tee -a /etc/php/7.2/mods-available/grpc.ini
-RUN phpenmod grpc
+#RUN echo "extension=grpc.so" | tee -a /etc/php/7.2/mods-available/grpc.ini
+#RUN phpenmod grpc
 
 COPY ./configs/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 RUN phpenmod opcache
