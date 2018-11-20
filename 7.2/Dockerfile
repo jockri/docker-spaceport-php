@@ -7,11 +7,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C
 RUN echo 'deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main' >> /etc/apt/sources.list && \
     apt-get -y -q update && \
     apt-get -y -q install apt-utils build-essential curl wget locales git vim && \
-    apt-get -y -q install --no-install-recommends libxrender1 php7.2 php7.2-apcu php7.2-apcu-bc php7.2-bcmath php7.2-cgi php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-fpm php7.2-gd php7.2-imagick php7.2-imap php7.2-intl php7.2-json php7.2-ldap php7.2-memcached php7.2-mysqlnd php7.2-pgsql php7.2-readline php7.2-sybase php7.2-xmlrpc php7.2-xsl php7.2-mbstring php7.2-soap php-xdebug php7.2-zip php7.2 libapache2-mod-php7.2 && \
+    apt-get -y -q install --no-install-recommends libxrender1 php7.2 php7.2-apcu php7.2-apcu-bc php7.2-bcmath php7.2-cgi php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-fpm php7.2-gd php7.2-imagick php7.2-imap php7.2-intl php7.2-json php7.2-ldap php7.2-memcached php7.2-mysqlnd php7.2-pgsql php7.2-readline php7.2-sybase php7.2-xmlrpc php7.2-xsl php7.2-mbstring php7.2-soap php-xdebug php7.2-zip php-pear php7.2 libapache2-mod-php7.2 && \
     mkdir -p /run/php/ && \
     apt-get -y -q autoremove && \
     apt-get -y -q clean && \
     rm -rf /var/lib/apt/lists/*
+    pecl install grpc
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer global require hirak/prestissimo
@@ -37,6 +38,9 @@ RUN locale-gen nl_BE && \
     locale-gen nl_NL.UTF-8 && \
     locale-gen fr_FR.UTF-8 && \
     locale-gen en_US.UTF-8
+
+RUN echo "extension=grpc.so" | tee -a /etc/php/7.2/mods-available/grpc.ini
+RUN phpenmod grpc
 
 COPY ./configs/opcache.ini /etc/php/7.2/mods-available/opcache.ini
 RUN phpenmod opcache
