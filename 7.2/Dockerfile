@@ -15,13 +15,12 @@ RUN echo 'deb http://ppa.launchpad.net/ondrej/php/ubuntu xenial main' >> /etc/ap
 
 RUN pecl install grpc
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer global require hirak/prestissimo
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN mkdir -p /tmp/wkhtml && cd /tmp/wkhtml && \
-    wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
-    tar vxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
-    cp wkhtmltox/bin/wk* /usr/local/bin/ && rm -rf /tmp/wkhtml
+#RUN mkdir -p /tmp/wkhtml && cd /tmp/wkhtml && \
+#    wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+#    tar vxf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz && \
+#    cp wkhtmltox/bin/wk* /usr/local/bin/ && rm -rf /tmp/wkhtml
 
 RUN echo Europe/Brussels > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
 
