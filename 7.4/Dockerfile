@@ -9,7 +9,7 @@ RUN apt-get update && \
 # Install php
 RUN add-apt-repository ppa:ondrej/php && \
     apt-get -y -q update && \
-    apt-get -y -q --allow-unauthenticated install --no-install-recommends libxrender1 php7.3 php7.3-apcu php7.3-bcmath php7.3-cgi php7.3-amqp php7.3-cli php7.3-common php7.3-curl php7.3-dev php7.3-fpm php7.3-gd php7.3-imagick php7.3-imap php7.3-intl php7.3-json php7.3-ldap php7.3-memcached php7.3-mysqlnd php7.3-pgsql php7.3-readline php7.3-sybase php7.3-xmlrpc php7.3-xsl php7.3-mbstring php7.3-soap php-xdebug php7.3-zip libapache2-mod-php7.3 && \
+    apt-get -y -q --allow-unauthenticated install --no-install-recommends libxrender1 php7.4 php7.4-apcu php7.4-bcmath php7.4-cgi php7.4-amqp php7.4-cli php7.4-common php7.4-curl php7.4-dev php7.4-fpm php7.4-gd php7.4-imagick php7.4-imap php7.4-intl php7.4-json php7.4-ldap php7.4-memcached php7.4-mysqlnd php7.4-pgsql php7.4-readline php7.4-sybase php7.4-xmlrpc php7.4-xsl php7.4-mbstring php7.4-soap php-xdebug php7.4-zip libapache2-mod-php7.4 && \
     mkdir -p /run/php/
 
 # Install wkhtmltopdf, increased container size by 6 times sadly and clean up some unused packages
@@ -48,11 +48,11 @@ ENV LANGUAGE en_US.UTF-8
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # fix php config
-COPY ./configs/opcache.ini /etc/php/7.3/mods-available/opcache.ini
-COPY ./configs/apcu.ini /etc/php/7.3/mods-available/apcu.ini
-COPY ./configs/kunstmaan.ini /etc/php/7.3/mods-available/kunstmaan.ini
-COPY ./configs/xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
-COPY ./configs/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+COPY ./configs/opcache.ini /etc/php/7.4/mods-available/opcache.ini
+COPY ./configs/apcu.ini /etc/php/7.4/mods-available/apcu.ini
+COPY ./configs/kunstmaan.ini /etc/php/7.4/mods-available/kunstmaan.ini
+COPY ./configs/xdebug.ini /etc/php/7.4/mods-available/xdebug.ini
+COPY ./configs/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 COPY ./configs/run.sh /scripts/run.sh
 RUN phpenmod opcache && \
     phpenmod apcu && \
@@ -62,6 +62,6 @@ RUN phpenmod opcache && \
 
 EXPOSE 9000
 
-CMD ["/scripts/run.sh", "php-fpm7.3 --allow-to-run-as-root"]
+CMD ["/scripts/run.sh", "php-fpm7.4 --allow-to-run-as-root"]
 
 WORKDIR /app
